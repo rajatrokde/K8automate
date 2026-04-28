@@ -18,7 +18,7 @@ jobs:
         uses: docker/login-action@v4   # authenticate Docker Hub
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set IMAGE_NAME environment variable
         run: echo "IMAGE_NAME=${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_REPO }}:github" >> $GITHUB_ENV
