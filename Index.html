@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard UI</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    background: #f4f6f9;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: #1e293b;
+    color: #fff;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    margin-bottom: 30px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.sidebar ul li:hover {
+    background: #334155;
+}
+
+/* Main Content */
+.main {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    color: #333;
+}
+
+/* Cards */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* Table */
+.table-container {
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+}
+
+table th {
+    background: #f1f5f9;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 6px;
+    color: #fff;
+}
+
+.running { background: green; }
+.failed { background: red; }
+.pending { background: orange; }
+
+/* Button */
+button {
+    padding: 8px 15px;
+    border: none;
+    background: #3b82f6;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <h2>DevOps Panel</h2>
+    <ul>
+        <li onclick="changePage('dashboard')">Dashboard</li>
+        <li onclick="changePage('pipelines')">Pipelines</li>
+        <li onclick="changePage('clusters')">Clusters</li>
+        <li onclick="changePage('settings')">Settings</li>
+    </ul>
+</div>
+
+<!-- Main -->
+<div class="main">
+    <div class="header">
+        <h1 id="page-title">Dashboard</h1>
+        <button onclick="refreshData()">Refresh</button>
+    </div>
+
+    <!-- Cards -->
+    <div class="cards">
+        <div class="card">
+            <h3>Running Pods</h3>
+            <p id="pods">12</p>
+        </div>
+        <div class="card">
+            <h3>Active Pipelines</h3>
+            <p id="pipelines">5</p>
+        </div>
+        <div class="card">
+            <h3>Failed Jobs</h3>
+            <p id="failed">1</p>
+        </div>
+        <div class="card">
+            <h3>CPU Usage</h3>
+            <p id="cpu">68%</p>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-container">
+        <h3>Recent Deployments</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <tr>
+                    <td>Frontend</td>
+                    <td><span class="status running">Running</span></td>
+                    <td><button onclick="restart('Frontend')">Restart</button></td>
+                </tr>
+                <tr>
+                    <td>Backend</td>
+                    <td><span class="status failed">Failed</span></td>
+                    <td><button onclick="restart('Backend')">Restart</button></td>
+                </tr>
+                <tr>
+                    <td>Database</td>
+                    <td><span class="status pending">Pending</span></td>
+                    <td><button onclick="restart('Database')">Restart</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+function refreshData() {
+    document.getElementById("pods").innerText = Math.floor(Math.random()*20);
+    document.getElementById("pipelines").innerText = Math.floor(Math.random()*10);
+    document.getElementById("failed").innerText = Math.floor(Math.random()*5);
+    document.getElementById("cpu").innerText = Math.floor(Math.random()*100) + "%";
+}
+
+function restart(service) {
+    alert(service + " restarting...");
+}
+
+function changePage(page) {
+    document.getElementById("page-title").innerText = page.charAt(0).toUpperCase() + page.slice(1);
+}
+</script>
+
+</body>
+</html>
